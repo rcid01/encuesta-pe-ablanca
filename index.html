@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta – Servicio de Medicina | Hospital de Peñablanca</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --navy: #0f2340;
+    --teal: #1a6b72;
+    --teal-light: #2a9d8f;
+    --gold: #e9c46a;
+    --cream: #faf7f2;
+    --white: #ffffff;
+    --text: #1c2b3a;
+    --text-muted: #5a7184;
+    --border: #d4e0e8;
+    --shadow: 0 4px 24px rgba(15,35,64,0.10);
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+  @media print {
+    body { background: white; }
+    .no-print { display: none !important; }
+    .survey-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+    .qr-section { break-inside: avoid; }
+    header { break-after: avoid; }
+  }
+
+  header {
+    background: var(--navy);
+    padding: 36px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 240px; height: 240px; background: var(--teal); border-radius: 50%; opacity: 0.18;
+  }
+  header::after {
+    content: ''; position: absolute; bottom: -40px; left: 20%;
+    width: 160px; height: 160px; background: var(--gold); border-radius: 50%; opacity: 0.10;
+  }
+  .header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: flex-start; gap: 20px; }
+  .header-badge { width: 56px; height: 56px; background: var(--teal-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 26px; }
+  .header-text { flex: 1; }
+  .hospital-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-light); margin-bottom: 6px; }
+  header h1 { font-family: 'Crimson Pro', serif; font-size: 28px; font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 8px; }
+  .header-sub { font-size: 13px; color: rgba(255,255,255,0.60); font-weight: 300; }
+  .confidential-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(233,196,106,0.15); border: 1px solid rgba(233,196,106,0.35); color: var(--gold); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; margin-top: 12px; }
+
+  main { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  .qr-section { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 32px; display: flex; align-items: center; gap: 32px; margin-bottom: 28px; border-left: 4px solid var(--teal-light); }
+  .qr-box { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  #qrcode canvas, #qrcode img { border-radius: 8px; border: 2px solid var(--border); }
+  .qr-label { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+  .qr-text h3 { font-family: 'Crimson Pro', serif; font-size: 20px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
+  .qr-text p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 10px; }
+  .qr-instructions { display: flex; flex-direction: column; gap: 4px; }
+  .qr-step { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-muted); }
+  .qr-step-num { width: 20px; height: 20px; background: var(--teal); color: white; border-radius: 50%; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .survey-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 32px; margin-bottom: 16px; border: 1px solid var(--border); position: relative; }
+  .q-number { position: absolute; top: 24px; right: 28px; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--teal-light); background: rgba(42,157,143,0.08); padding: 3px 9px; border-radius: 20px; }
+  .q-text { font-family: 'Crimson Pro', serif; font-size: 17.5px; font-weight: 600; color: var(--navy); margin-bottom: 18px; line-height: 1.5; padding-right: 60px; }
+
+  .likert-5 { display: flex; justify-content: space-between; gap: 6px; }
+  .likert-option { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; flex: 1; }
+  .likert-option input { display: none; }
+  .likert-circle { width: 100%; height: 38px; border-radius: 8px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; transition: all 0.18s; background: var(--cream); color: var(--text-muted); cursor: pointer; }
+  .likert-option input:checked + .likert-circle { border-color: var(--teal); background: var(--teal); color: white; box-shadow: 0 2px 12px rgba(42,157,143,0.35); }
+  .likert-option:hover .likert-circle { border-color: var(--teal-light); background: rgba(42,157,143,0.08); color: var(--teal); }
+
+  .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+  .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); cursor: pointer; font-size: 13.5px; transition: all 0.15s; background: var(--cream); }
+  .check-item:hover { border-color: var(--teal-light); background: rgba(42,157,143,0.05); }
+  .check-item input[type="checkbox"] { display: none; }
+  .check-box { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; background: white; }
+  .check-item input:checked ~ .check-box { background: var(--teal); border-color: var(--teal); }
+  .check-item input:checked ~ .check-box::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
+  .check-item input:checked ~ span { color: var(--teal); font-weight: 500; }
+  .otros-input { margin-top: 10px; width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; color: var(--text); background: var(--cream); transition: border-color 0.15s; resize: none; }
+  .otros-input:focus { outline: none; border-color: var(--teal-light); background: white; }
+
+  .scale-row { display: flex; gap: 5px; flex-wrap: wrap; align-items: flex-end; }
+  .scale-option { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .scale-option input { display: none; }
+  .scale-btn { width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--cream); font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.15s; }
+  .scale-option input:checked + .scale-btn { background: var(--teal); border-color: var(--teal); color: white; box-shadow: 0 2px 10px rgba(42,157,143,0.35); }
+  .scale-option:hover .scale-btn { border-color: var(--teal-light); color: var(--teal); }
+  .scale-extremes { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--text-muted); font-style: italic; }
+
+  .open-textarea { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--cream); min-height: 90px; resize: vertical; line-height: 1.6; transition: border-color 0.15s; }
+  .open-textarea:focus { outline: none; border-color: var(--teal-light); background: white; }
+  .field-hint { font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+
+  .priority-grid { display: flex; flex-direction: column; gap: 8px; }
+  .priority-row { display: flex; align-items: center; gap: 12px; }
+  .priority-badge { width: 32px; height: 32px; background: var(--navy); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .priority-badge.p2 { background: var(--teal); }
+  .priority-badge.p3 { background: var(--teal-light); }
+  .priority-input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; background: var(--cream); transition: border-color 0.15s; }
+  .priority-input:focus { outline: none; border-color: var(--teal-light); background: white; }
+
+  /* ── SUBMIT ── */
+  .submit-area { text-align: center; margin-top: 28px; }
+  .submit-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--navy); color: white; border: none;
+    padding: 14px 40px; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: all 0.18s; letter-spacing: 0.3px;
+  }
+  .submit-btn:hover:not(:disabled) { background: var(--teal); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(42,157,143,0.35); }
+  .submit-btn:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; }
+  .submit-note { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
+
+  /* ── ESTADOS DE ENVÍO ── */
+  .sending-msg, .success-msg, .error-msg { display: none; border-radius: var(--radius); padding: 24px 32px; text-align: center; margin-top: 20px; }
+  .sending-msg { background: rgba(42,157,143,0.05); border: 1.5px solid var(--border); }
+  .sending-msg p { color: var(--text-muted); font-size: 14px; }
+  .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .success-msg { background: rgba(42,157,143,0.08); border: 1.5px solid var(--teal-light); }
+  .success-msg h3 { font-family: 'Crimson Pro', serif; font-size: 22px; color: var(--teal); margin-bottom: 6px; }
+  .success-msg p { font-size: 14px; color: var(--text-muted); }
+  .error-msg { background: rgba(220,53,69,0.06); border: 1.5px solid rgba(220,53,69,0.3); }
+  .error-msg p { color: #c0392b; font-size: 14px; }
+  .retry-btn { margin-top: 12px; padding: 8px 20px; background: var(--navy); color: white; border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; }
+
+  @media (max-width: 600px) {
+    header { padding: 24px 20px 20px; }
+    header h1 { font-size: 22px; }
+    main { padding: 20px 14px 40px; }
+    .survey-card { padding: 20px 18px; }
+    .qr-section { flex-direction: column; gap: 20px; text-align: center; }
+    .likert-5 .likert-circle { height: 34px; font-size: 11px; }
+    .scale-btn { width: 34px; height: 34px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-badge">🏥</div>
+    <div class="header-text">
+      <div class="hospital-label">Hospital de Peñablanca</div>
+      <h1>Encuesta de Seguridad<br>y Clima Laboral</h1>
+      <div class="header-sub">Servicio de Medicina · Evaluación interna del equipo de salud</div>
+      <div class="confidential-tag">🔒 Anónima y confidencial</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="qr-section">
+    <div class="qr-box">
+      <div id="qrcode"></div>
+      <div class="qr-label">Escanear para responder</div>
+    </div>
+    <div class="qr-text">
+      <h3>¿Cómo responder esta encuesta?</h3>
+      <p>Puedes completarla directamente en este formulario o escanear el código QR con tu teléfono para responderla en línea.</p>
+      <div class="qr-instructions">
+        <div class="qr-step"><span class="qr-step-num">1</span> Abre la cámara de tu smartphone</div>
+        <div class="qr-step"><span class="qr-step-num">2</span> Apunta al código QR por 2 segundos</div>
+        <div class="qr-step"><span class="qr-step-num">3</span> Toca el enlace que aparece en pantalla</div>
+      </div>
+    </div>
+  </div>
+
+  <form id="surveyForm" novalidate>
+
+    <div class="section-label">Bloque 1 — Seguridad del paciente</div>
+
+    <div class="survey-card">
+      <span class="q-number">P1</span>
+      <div class="q-text">¿Considera que el servicio es seguro para los pacientes?</div>
+      <div class="likert-5">
+        <label class="likert-option"><input type="radio" name="p1" value="1"><div class="likert-circle">Muy inseguro</div></label>
+        <label class="likert-option"><input type="radio" name="p1" value="2"><div class="likert-circle">Inseguro</div></label>
+        <label class="likert-option"><input type="radio" name="p1" value="3"><div class="likert-circle">Neutral</div></label>
+        <label class="likert-option"><input type="radio" name="p1" value="4"><div class="likert-circle">Seguro</div></label>
+        <label class="likert-option"><input type="radio" name="p1" value="5"><div class="likert-circle">Muy seguro</div></label>
+      </div>
+    </div>
+
+    <div class="survey-card">
+      <span class="q-number">P2</span>
+      <div class="q-text">En su experiencia, ¿qué situaciones representan mayor riesgo? <small style="font-weight:400;color:var(--text-muted)">(puede marcar más de una)</small></div>
+      <div class="check-grid">
+        <label class="check-item"><input type="checkbox" name="p2" value="Caídas"><div class="check-box"></div><span>Caídas</span></label>
+        <label class="check-item"><input type="checkbox" name="p2" value="Errores en administración de medicamentos"><div class="check-box"></div><span>Errores en administración de medicamentos</span></label>
+        <label class="check-item"><input type="checkbox" name="p2" value="Sobrecarga laboral"><div class="check-box"></div><span>Sobrecarga laboral</span></label>
+        <label class="check-item"><input type="checkbox" name="p2" value="Falta de personal"><div class="check-box"></div><span>Falta de personal</span></label>
+        <label class="check-item"><input type="checkbox" name="p2" value="Otros"><div class="check-box"></div><span>Otros</span></label>
+      </div>
+      <textarea class="otros-input" rows="1" placeholder="Si marcó 'Otros', especifique aquí…" name="p2_otros"></textarea>
+    </div>
+
+    <div class="section-label">Bloque 2 — Estrés laboral</div>
+
+    <div class="survey-card">
+      <span class="q-number">P3</span>
+      <div class="q-text">¿Cuál es su nivel de estrés laboral percibido? Califíquelo del 1 al 10.</div>
+      <div class="scale-row">
+        <label class="scale-option"><input type="radio" name="p3" value="1"><div class="scale-btn">1</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="2"><div class="scale-btn">2</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="3"><div class="scale-btn">3</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="4"><div class="scale-btn">4</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="5"><div class="scale-btn">5</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="6"><div class="scale-btn">6</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="7"><div class="scale-btn">7</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="8"><div class="scale-btn">8</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="9"><div class="scale-btn">9</div></label>
+        <label class="scale-option"><input type="radio" name="p3" value="10"><div class="scale-btn">10</div></label>
+      </div>
+      <div class="scale-extremes"><span>1 = Sin estrés</span><span>10 = Estrés máximo</span></div>
+    </div>
+
+    <div class="survey-card">
+      <span class="q-number">P4</span>
+      <div class="q-text">¿Qué situaciones le generan mayor estrés? <small style="font-weight:400;color:var(--text-muted)">(puede marcar más de una)</small></div>
+      <div class="check-grid">
+        <label class="check-item"><input type="checkbox" name="p4" value="Sobrecarga de trabajo"><div class="check-box"></div><span>Sobrecarga de trabajo</span></label>
+        <label class="check-item"><input type="checkbox" name="p4" value="Falta de personal"><div class="check-box"></div><span>Falta de personal</span></label>
+        <label class="check-item"><input type="checkbox" name="p4" value="Problemas de comunicación"><div class="check-box"></div><span>Problemas de comunicación</span></label>
+        <label class="check-item"><input type="checkbox" name="p4" value="Falta de insumos"><div class="check-box"></div><span>Falta de insumos</span></label>
+        <label class="check-item"><input type="checkbox" name="p4" value="Conflictos con usuarios"><div class="check-box"></div><span>Conflictos con usuarios</span></label>
+        <label class="check-item"><input type="checkbox" name="p4" value="Turnos extensos"><div class="check-box"></div><span>Turnos extensos</span></label>
+        <label class="check-item"><input type="checkbox" name="p4" value="Otros"><div class="check-box"></div><span>Otros</span></label>
+      </div>
+      <textarea class="otros-input" rows="1" placeholder="Si marcó 'Otros', especifique aquí…" name="p4_otros"></textarea>
+    </div>
+
+    <div class="section-label">Bloque 3 — Diagnóstico y mejora</div>
+
+    <div class="survey-card">
+      <span class="q-number">P5</span>
+      <div class="q-text">Mencione los 3 principales problemas del servicio y ordénelos por prioridad.</div>
+      <div class="priority-grid">
+        <div class="priority-row">
+          <div class="priority-badge">1°</div>
+          <input type="text" class="priority-input" name="p5_1" placeholder="Problema prioritario…">
+        </div>
+        <div class="priority-row">
+          <div class="priority-badge p2">2°</div>
+          <input type="text" class="priority-input" name="p5_2" placeholder="Segundo problema…">
+        </div>
+        <div class="priority-row">
+          <div class="priority-badge p3">3°</div>
+          <input type="text" class="priority-input" name="p5_3" placeholder="Tercer problema…">
+        </div>
+      </div>
+    </div>
+
+    <div class="survey-card">
+      <span class="q-number">P6</span>
+      <div class="q-text">¿Qué acciones concretas implementaría para mejorar el servicio? ¿Cuál considera más urgente?</div>
+      <div class="field-hint">Describa sus propuestas y señale cuál requiere atención inmediata.</div>
+      <textarea class="open-textarea" name="p6" placeholder="Escriba sus propuestas aquí…"></textarea>
+    </div>
+
+    <div class="survey-card">
+      <span class="q-number">P7</span>
+      <div class="q-text">Mencione las 3 principales fortalezas del servicio de Medicina del Hospital de Peñablanca.</div>
+      <div class="priority-grid">
+        <div class="priority-row">
+          <div class="priority-badge" style="background:var(--teal-light)">⭐</div>
+          <input type="text" class="priority-input" name="p7_1" placeholder="Primera fortaleza…">
+        </div>
+        <div class="priority-row">
+          <div class="priority-badge" style="background:var(--teal-light)">⭐</div>
+          <input type="text" class="priority-input" name="p7_2" placeholder="Segunda fortaleza…">
+        </div>
+        <div class="priority-row">
+          <div class="priority-badge" style="background:var(--teal-light)">⭐</div>
+          <input type="text" class="priority-input" name="p7_3" placeholder="Tercera fortaleza…">
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label">Bloque 4 — Clima laboral</div>
+
+    <div class="survey-card">
+      <span class="q-number">P8</span>
+      <div class="q-text">¿Cómo evalúa el clima laboral del servicio?</div>
+      <div class="likert-5">
+        <label class="likert-option"><input type="radio" name="p8" value="1"><div class="likert-circle">Muy malo</div></label>
+        <label class="likert-option"><input type="radio" name="p8" value="2"><div class="likert-circle">Malo</div></label>
+        <label class="likert-option"><input type="radio" name="p8" value="3"><div class="likert-circle">Regular</div></label>
+        <label class="likert-option"><input type="radio" name="p8" value="4"><div class="likert-circle">Bueno</div></label>
+        <label class="likert-option"><input type="radio" name="p8" value="5"><div class="likert-circle">Muy bueno</div></label>
+      </div>
+    </div>
+
+    <!-- ÁREA DE ENVÍO -->
+    <div class="submit-area no-print" id="submitArea">
+      <button type="submit" class="submit-btn" id="submitBtn">✅ Enviar respuestas</button>
+      <div class="submit-note">Sus respuestas son anónimas y serán tratadas de forma confidencial.</div>
+    </div>
+
+    <div class="sending-msg" id="sendingMsg">
+      <div class="spinner"></div>
+      <p>Enviando sus respuestas, por favor espere…</p>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <h3>✅ ¡Gracias por su participación!</h3>
+      <p>Sus respuestas han sido registradas correctamente y contribuirán a mejorar el servicio de Medicina.</p>
+    </div>
+
+    <div class="error-msg" id="errorMsg">
+      <p>⚠️ Ocurrió un error al enviar las respuestas. Por favor intente nuevamente.</p>
+      <button class="retry-btn" onclick="resetForm()">Reintentar</button>
+    </div>
+
+  </form>
+</main>
+
+<script>
+  // ══════════════════════════════════════════════════════
+  //  ⚠️  PEGA AQUÍ LA URL DE TU APPS SCRIPT WEB APP
+  // ══════════════════════════════════════════════════════
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwe_K4fshf8WCAJisQvFUPhqXUdOt9cbl4EabXwhr1GmmFVzEjztqeimlAX53hWWWsOtQ/exec";
+  // Ejemplo: "https://script.google.com/macros/s/AKfyc.../exec"
+  // ══════════════════════════════════════════════════════
+
+  // QR apunta a la URL actual del archivo
+  new QRCode(document.getElementById("qrcode"), {
+    text: window.location.href,
+    width: 130,
+    height: 130,
+    colorDark: "#0f2340",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  // Recolectar todos los valores del formulario
+  function collectFormData() {
+    const form = document.getElementById('surveyForm');
+
+    // Radios
+    const getRadio = name => {
+      const el = form.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : "";
+    };
+
+    // Checkboxes múltiples → array
+    const getCheckboxes = name => {
+      return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+    };
+
+    // Texto libre
+    const getText = name => {
+      const el = form.querySelector(`[name="${name}"]`);
+      return el ? el.value.trim() : "";
+    };
+
+    return {
+      p1:      getRadio('p1'),
+      p2:      getCheckboxes('p2'),
+      p2_otros: getText('p2_otros'),
+      p3:      getRadio('p3'),
+      p4:      getCheckboxes('p4'),
+      p4_otros: getText('p4_otros'),
+      p5_1:    getText('p5_1'),
+      p5_2:    getText('p5_2'),
+      p5_3:    getText('p5_3'),
+      p6:      getText('p6'),
+      p7_1:    getText('p7_1'),
+      p7_2:    getText('p7_2'),
+      p7_3:    getText('p7_3'),
+      p8:      getRadio('p8')
+    };
+  }
+
+  function showState(state) {
+    document.getElementById('submitArea').style.display  = state === 'form'    ? 'block' : 'none';
+    document.getElementById('sendingMsg').style.display  = state === 'sending' ? 'block' : 'none';
+    document.getElementById('successMsg').style.display  = state === 'success' ? 'block' : 'none';
+    document.getElementById('errorMsg').style.display    = state === 'error'   ? 'block' : 'none';
+  }
+
+  function resetForm() {
+    showState('form');
+  }
+
+  document.getElementById('surveyForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Validar URL configurada
+    if (APPS_SCRIPT_URL === "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT") {
+      alert("⚠️ Configura la URL del Apps Script en el código HTML antes de usar el formulario.");
+      return;
+    }
+
+    const data = collectFormData();
+    showState('sending');
+
+    try {
+      // Apps Script requiere no-cors cuando se llama desde HTML externo
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      // no-cors no devuelve respuesta legible, pero si no lanza error = éxito
+      showState('success');
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    } catch (err) {
+      console.error("Error al enviar:", err);
+      showState('error');
+    }
+  });
+</script>
+
+</body>
+</html>
