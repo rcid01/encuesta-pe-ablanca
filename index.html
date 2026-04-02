@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Encuesta – Servicio de Medicina | Hospital de Peñablanca</title>
+<title>Encuesta – Servicio de Medicina 1 | Hospital de Peñablanca</title>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
@@ -49,9 +49,28 @@
   .header-badge { width: 56px; height: 56px; background: var(--teal-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 26px; }
   .header-text { flex: 1; }
   .hospital-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--teal-light); margin-bottom: 6px; }
-  header h1 { font-family: 'Crimson Pro', serif; font-size: 28px; font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 8px; }
-  .header-sub { font-size: 13px; color: rgba(255,255,255,0.60); font-weight: 300; }
+  header h1 { font-family: 'Crimson Pro', serif; font-size: 26px; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: 8px; }
+  .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); font-weight: 400; font-style: italic; }
   .confidential-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(233,196,106,0.15); border: 1px solid rgba(233,196,106,0.35); color: var(--gold); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; margin-top: 12px; }
+  .survey-intro {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .intro-body {
+    font-size: 13px;
+    color: rgba(255,255,255,0.70);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .intro-thanks {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1.7;
+    font-style: italic;
+  }
 
   main { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
 
@@ -110,20 +129,12 @@
   .priority-input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; background: var(--cream); transition: border-color 0.15s; }
   .priority-input:focus { outline: none; border-color: var(--teal-light); background: white; }
 
-  /* ── SUBMIT ── */
   .submit-area { text-align: center; margin-top: 28px; }
-  .submit-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--navy); color: white; border: none;
-    padding: 14px 40px; border-radius: 10px;
-    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
-    cursor: pointer; transition: all 0.18s; letter-spacing: 0.3px;
-  }
+  .submit-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--navy); color: white; border: none; padding: 14px 40px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.18s; letter-spacing: 0.3px; }
   .submit-btn:hover:not(:disabled) { background: var(--teal); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(42,157,143,0.35); }
   .submit-btn:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; }
   .submit-note { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
 
-  /* ── ESTADOS DE ENVÍO ── */
   .sending-msg, .success-msg, .error-msg { display: none; border-radius: var(--radius); padding: 24px 32px; text-align: center; margin-top: 20px; }
   .sending-msg { background: rgba(42,157,143,0.05); border: 1.5px solid var(--border); }
   .sending-msg p { color: var(--text-muted); font-size: 14px; }
@@ -138,7 +149,7 @@
 
   @media (max-width: 600px) {
     header { padding: 24px 20px 20px; }
-    header h1 { font-size: 22px; }
+    header h1 { font-size: 20px; }
     main { padding: 20px 14px 40px; }
     .survey-card { padding: 20px 18px; }
     .qr-section { flex-direction: column; gap: 20px; text-align: center; }
@@ -154,9 +165,21 @@
     <div class="header-badge">🏥</div>
     <div class="header-text">
       <div class="hospital-label">Hospital de Peñablanca</div>
-      <h1>Encuesta de Diagnóstico para la<br>Mejora Continua en el Servicio<br>de Medicina 1</h1>
-      <div class="header-sub">Hospital de Peñablanca · Evaluación interna del equipo de salud</div>
+      <h1>Encuesta de Diagnóstico para la Mejora Continua en el Servicio de Medicina 1</h1>
+      <div class="header-sub">Rodrigo Cartagena Cid · Cristian Orellana Veliz · Internos Enfermería U.S.T.</div>
       <div class="confidential-tag">🔒 Anónima y confidencial</div>
+      <div class="survey-intro">
+        <p class="intro-body">
+          La presente encuesta forma parte del proyecto de mejora continua desarrollado en el marco 
+          del Internado de Enfermería, llevado a cabo en el Servicio de Medicina 1 del Hospital de 
+          Peñablanca. Su propósito es realizar un diagnóstico participativo que permita identificar 
+          fortalezas, nudos críticos y oportunidades de mejora en la atención entregada y en las 
+          condiciones del equipo de salud.
+        </p>
+        <p class="intro-thanks">
+          Agradecemos sinceramente su disposición y tiempo para completar este instrumento.
+        </p>
+      </div>
     </div>
   </div>
 </header>
@@ -183,6 +206,7 @@
 
     <div class="section-label">Bloque 1 — Seguridad del paciente</div>
 
+    <!-- P1 -->
     <div class="survey-card">
       <span class="q-number">P1</span>
       <div class="q-text">¿Considera que el servicio es seguro para los pacientes?</div>
@@ -195,6 +219,7 @@
       </div>
     </div>
 
+    <!-- P2 -->
     <div class="survey-card">
       <span class="q-number">P2</span>
       <div class="q-text">En su experiencia, ¿qué situaciones representan mayor riesgo? <small style="font-weight:400;color:var(--text-muted)">(puede marcar más de una)</small></div>
@@ -210,6 +235,7 @@
 
     <div class="section-label">Bloque 2 — Estrés laboral</div>
 
+    <!-- P3 -->
     <div class="survey-card">
       <span class="q-number">P3</span>
       <div class="q-text">¿Cuál es su nivel de estrés laboral percibido? Califíquelo del 1 al 10.</div>
@@ -230,6 +256,7 @@
 
     <div class="section-label">Bloque 3 — Diagnóstico y mejora</div>
 
+    <!-- P4 (ex P5) -->
     <div class="survey-card">
       <span class="q-number">P4</span>
       <div class="q-text">Mencione los 3 principales problemas del servicio y ordénelos por prioridad.</div>
@@ -249,6 +276,7 @@
       </div>
     </div>
 
+    <!-- P5 (ex P6) -->
     <div class="survey-card">
       <span class="q-number">P5</span>
       <div class="q-text">¿Qué acciones concretas implementaría para mejorar el servicio? ¿Cuál considera más urgente?</div>
@@ -256,9 +284,10 @@
       <textarea class="open-textarea" name="p6" placeholder="Escriba sus propuestas aquí…"></textarea>
     </div>
 
+    <!-- P6 (ex P7) -->
     <div class="survey-card">
       <span class="q-number">P6</span>
-      <div class="q-text">Mencione las 3 principales fortalezas del servicio de Medicina del Hospital de Peñablanca.</div>
+      <div class="q-text">Mencione las 3 principales fortalezas del servicio de Medicina 1 del Hospital de Peñablanca.</div>
       <div class="priority-grid">
         <div class="priority-row">
           <div class="priority-badge" style="background:var(--teal-light)">⭐</div>
@@ -275,7 +304,7 @@
       </div>
     </div>
 
-     <!-- ÁREA DE ENVÍO -->
+    <!-- ÁREA DE ENVÍO -->
     <div class="submit-area no-print" id="submitArea">
       <button type="submit" class="submit-btn" id="submitBtn">✅ Enviar respuestas</button>
       <div class="submit-note">Sus respuestas son anónimas y serán tratadas de forma confidencial.</div>
@@ -288,7 +317,7 @@
 
     <div class="success-msg" id="successMsg">
       <h3>✅ ¡Gracias por su participación!</h3>
-      <p>Sus respuestas han sido registradas correctamente y contribuirán a mejorar el servicio de Medicina.</p>
+      <p>Sus respuestas han sido registradas correctamente y contribuirán a mejorar el servicio de Medicina 1.</p>
     </div>
 
     <div class="error-msg" id="errorMsg">
@@ -307,7 +336,6 @@
   // Ejemplo: "https://script.google.com/macros/s/AKfyc.../exec"
   // ══════════════════════════════════════════════════════
 
-  // QR apunta a la URL actual del archivo
   new QRCode(document.getElementById("qrcode"), {
     text: window.location.href,
     width: 130,
@@ -317,42 +345,23 @@
     correctLevel: QRCode.CorrectLevel.M
   });
 
-  // Recolectar todos los valores del formulario
   function collectFormData() {
     const form = document.getElementById('surveyForm');
-
-    // Radios
-    const getRadio = name => {
-      const el = form.querySelector(`input[name="${name}"]:checked`);
-      return el ? el.value : "";
-    };
-
-    // Checkboxes múltiples → array
-    const getCheckboxes = name => {
-      return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
-    };
-
-    // Texto libre
-    const getText = name => {
-      const el = form.querySelector(`[name="${name}"]`);
-      return el ? el.value.trim() : "";
-    };
-
+    const getRadio = name => { const el = form.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ""; };
+    const getCheckboxes = name => Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+    const getText = name => { const el = form.querySelector(`[name="${name}"]`); return el ? el.value.trim() : ""; };
     return {
-      p1:      getRadio('p1'),
-      p2:      getCheckboxes('p2'),
+      p1:       getRadio('p1'),
+      p2:       getCheckboxes('p2'),
       p2_otros: getText('p2_otros'),
-      p3:      getRadio('p3'),
-      p4:      getCheckboxes('p4'),
-      p4_otros: getText('p4_otros'),
-      p5_1:    getText('p5_1'),
-      p5_2:    getText('p5_2'),
-      p5_3:    getText('p5_3'),
-      p6:      getText('p6'),
-      p7_1:    getText('p7_1'),
-      p7_2:    getText('p7_2'),
-      p7_3:    getText('p7_3'),
-      p8:      getRadio('p8')
+      p3:       getRadio('p3'),
+      p5_1:     getText('p5_1'),
+      p5_2:     getText('p5_2'),
+      p5_3:     getText('p5_3'),
+      p6:       getText('p6'),
+      p7_1:     getText('p7_1'),
+      p7_2:     getText('p7_2'),
+      p7_3:     getText('p7_3')
     };
   }
 
@@ -363,31 +372,23 @@
     document.getElementById('errorMsg').style.display    = state === 'error'   ? 'block' : 'none';
   }
 
-  function resetForm() {
-    showState('form');
-  }
+  function resetForm() { showState('form'); }
 
   document.getElementById('surveyForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-
-    // Validar URL configurada
     if (APPS_SCRIPT_URL === "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT") {
       alert("⚠️ Configura la URL del Apps Script en el código HTML antes de usar el formulario.");
       return;
     }
-
     const data = collectFormData();
     showState('sending');
-
     try {
-      // Apps Script requiere no-cors cuando se llama desde HTML externo
       await fetch(APPS_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
-      // no-cors no devuelve respuesta legible, pero si no lanza error = éxito
       showState('success');
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     } catch (err) {
