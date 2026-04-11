@@ -31,20 +31,9 @@
     header { break-after: avoid; }
   }
 
-  header {
-    background: var(--navy);
-    padding: 36px 40px 28px;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: ''; position: absolute; top: -60px; right: -60px;
-    width: 240px; height: 240px; background: var(--teal); border-radius: 50%; opacity: 0.18;
-  }
-  header::after {
-    content: ''; position: absolute; bottom: -40px; left: 20%;
-    width: 160px; height: 160px; background: var(--gold); border-radius: 50%; opacity: 0.10;
-  }
+  header { background: var(--navy); padding: 36px 40px 28px; position: relative; overflow: hidden; }
+  header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 240px; height: 240px; background: var(--teal); border-radius: 50%; opacity: 0.18; }
+  header::after { content: ''; position: absolute; bottom: -40px; left: 20%; width: 160px; height: 160px; background: var(--gold); border-radius: 50%; opacity: 0.10; }
   .header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; display: flex; align-items: flex-start; gap: 20px; }
   .header-badge { width: 56px; height: 56px; background: var(--teal-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 26px; }
   .header-text { flex: 1; }
@@ -52,25 +41,9 @@
   header h1 { font-family: 'Crimson Pro', serif; font-size: 26px; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: 8px; }
   .header-sub { font-size: 12px; color: rgba(255,255,255,0.55); font-weight: 400; font-style: italic; }
   .confidential-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(233,196,106,0.15); border: 1px solid rgba(233,196,106,0.35); color: var(--gold); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; margin-top: 12px; }
-  .survey-intro {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.12);
-  }
-  .intro-body {
-    font-size: 13px;
-    color: rgba(255,255,255,0.70);
-    font-weight: 300;
-    line-height: 1.7;
-    margin-bottom: 10px;
-  }
-  .intro-thanks {
-    font-size: 13px;
-    color: var(--gold);
-    font-weight: 400;
-    line-height: 1.7;
-    font-style: italic;
-  }
+  .survey-intro { margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.12); }
+  .intro-body { font-size: 13px; color: rgba(255,255,255,0.70); font-weight: 300; line-height: 1.7; margin-bottom: 10px; }
+  .intro-thanks { font-size: 13px; color: var(--gold); font-weight: 400; line-height: 1.7; font-style: italic; }
 
   main { max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }
 
@@ -84,55 +57,30 @@
   .qr-step { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-muted); }
   .qr-step-num { width: 20px; height: 20px; background: var(--teal); color: white; border-radius: 50%; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
-  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; margin-top: 8px; display: flex; align-items: center; gap: 8px; }
-  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .survey-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 32px; margin-bottom: 20px; border: 1px solid var(--border); position: relative; }
+  .card-fortaleza { border-left: 4px solid var(--teal-light); }
+  .card-debilidad { border-left: 4px solid #e76f51; }
 
-  .survey-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 32px; margin-bottom: 16px; border: 1px solid var(--border); position: relative; }
   .q-number { position: absolute; top: 24px; right: 28px; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--teal-light); background: rgba(42,157,143,0.08); padding: 3px 9px; border-radius: 20px; }
-  .q-text { font-family: 'Crimson Pro', serif; font-size: 17.5px; font-weight: 600; color: var(--navy); margin-bottom: 18px; line-height: 1.5; padding-right: 60px; }
+  .q-number.debilidad { color: #e76f51; background: rgba(231,111,81,0.08); }
+  .q-icon { font-size: 22px; margin-bottom: 10px; display: block; }
+  .q-text { font-family: 'Crimson Pro', serif; font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 6px; line-height: 1.4; padding-right: 60px; }
+  .q-hint { font-size: 12.5px; color: var(--text-muted); font-style: italic; margin-bottom: 20px; }
 
-  .likert-5 { display: flex; justify-content: space-between; gap: 6px; }
-  .likert-option { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; flex: 1; }
-  .likert-option input { display: none; }
-  .likert-circle { width: 100%; height: 38px; border-radius: 8px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; transition: all 0.18s; background: var(--cream); color: var(--text-muted); cursor: pointer; }
-  .likert-option input:checked + .likert-circle { border-color: var(--teal); background: var(--teal); color: white; box-shadow: 0 2px 12px rgba(42,157,143,0.35); }
-  .likert-option:hover .likert-circle { border-color: var(--teal-light); background: rgba(42,157,143,0.08); color: var(--teal); }
+  .ideas-grid { display: flex; flex-direction: column; gap: 12px; }
+  .idea-row { display: flex; align-items: center; gap: 12px; }
+  .idea-badge { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; color: white; }
+  .badge-f { background: var(--teal-light); }
+  .badge-d { background: #e76f51; }
+  .idea-input { flex: 1; padding: 11px 16px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--cream); transition: border-color 0.15s, background 0.15s; }
+  .idea-input:focus { outline: none; background: white; }
+  .idea-input.fortaleza:focus { border-color: var(--teal-light); }
+  .idea-input.debilidad:focus { border-color: #e76f51; }
 
-  .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
-  .check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); cursor: pointer; font-size: 13.5px; transition: all 0.15s; background: var(--cream); }
-  .check-item:hover { border-color: var(--teal-light); background: rgba(42,157,143,0.05); }
-  .check-item input[type="checkbox"] { display: none; }
-  .check-box { width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; background: white; }
-  .check-item input:checked ~ .check-box { background: var(--teal); border-color: var(--teal); }
-  .check-item input:checked ~ .check-box::after { content: '✓'; color: white; font-size: 11px; font-weight: 700; }
-  .check-item input:checked ~ span { color: var(--teal); font-weight: 500; }
-  .otros-input { margin-top: 10px; width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; color: var(--text); background: var(--cream); transition: border-color 0.15s; resize: none; }
-  .otros-input:focus { outline: none; border-color: var(--teal-light); background: white; }
-
-  .scale-row { display: flex; gap: 5px; flex-wrap: wrap; align-items: flex-end; }
-  .scale-option { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-  .scale-option input { display: none; }
-  .scale-btn { width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--cream); font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.15s; }
-  .scale-option input:checked + .scale-btn { background: var(--teal); border-color: var(--teal); color: white; box-shadow: 0 2px 10px rgba(42,157,143,0.35); }
-  .scale-option:hover .scale-btn { border-color: var(--teal-light); color: var(--teal); }
-  .scale-extremes { display: flex; justify-content: space-between; margin-top: 6px; font-size: 11px; color: var(--text-muted); font-style: italic; }
-
-  .open-textarea { width: 100%; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--cream); min-height: 90px; resize: vertical; line-height: 1.6; transition: border-color 0.15s; }
-  .open-textarea:focus { outline: none; border-color: var(--teal-light); background: white; }
-  .field-hint { font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
-
-  .priority-grid { display: flex; flex-direction: column; gap: 8px; }
-  .priority-row { display: flex; align-items: center; gap: 12px; }
-  .priority-badge { width: 32px; height: 32px; background: var(--navy); color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
-  .priority-badge.p2 { background: var(--teal); }
-  .priority-badge.p3 { background: var(--teal-light); }
-  .priority-input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; background: var(--cream); transition: border-color 0.15s; }
-  .priority-input:focus { outline: none; border-color: var(--teal-light); background: white; }
-
-  .submit-area { text-align: center; margin-top: 28px; }
-  .submit-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--navy); color: white; border: none; padding: 14px 40px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.18s; letter-spacing: 0.3px; }
-  .submit-btn:hover:not(:disabled) { background: var(--teal); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(42,157,143,0.35); }
-  .submit-btn:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; }
+  .submit-area { text-align: center; margin-top: 32px; }
+  .submit-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--navy); color: white; border: none; padding: 14px 40px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.18s; }
+  .submit-btn:hover:not(:disabled) { background: var(--teal); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(42,157,143,0.30); }
+  .submit-btn:disabled { background: var(--text-muted); cursor: not-allowed; }
   .submit-note { margin-top: 10px; font-size: 12px; color: var(--text-muted); }
 
   .sending-msg, .success-msg, .error-msg { display: none; border-radius: var(--radius); padding: 24px 32px; text-align: center; margin-top: 20px; }
@@ -153,8 +101,6 @@
     main { padding: 20px 14px 40px; }
     .survey-card { padding: 20px 18px; }
     .qr-section { flex-direction: column; gap: 20px; text-align: center; }
-    .likert-5 .likert-circle { height: 34px; font-size: 11px; }
-    .scale-btn { width: 34px; height: 34px; font-size: 13px; }
   }
 </style>
 </head>
@@ -204,109 +150,53 @@
 
   <form id="surveyForm" novalidate>
 
-    <div class="section-label">Bloque 1 — Seguridad del paciente</div>
-
-    <!-- P1 -->
-    <div class="survey-card">
+    <!-- P1 FORTALEZAS -->
+    <div class="survey-card card-fortaleza">
       <span class="q-number">P1</span>
-      <div class="q-text">¿Considera que el servicio es seguro para los pacientes?</div>
-      <div class="likert-5">
-        <label class="likert-option"><input type="radio" name="p1" value="1"><div class="likert-circle">Muy inseguro</div></label>
-        <label class="likert-option"><input type="radio" name="p1" value="2"><div class="likert-circle">Inseguro</div></label>
-        <label class="likert-option"><input type="radio" name="p1" value="3"><div class="likert-circle">Neutral</div></label>
-        <label class="likert-option"><input type="radio" name="p1" value="4"><div class="likert-circle">Seguro</div></label>
-        <label class="likert-option"><input type="radio" name="p1" value="5"><div class="likert-circle">Muy seguro</div></label>
-      </div>
-    </div>
-
-    <!-- P2 -->
-    <div class="survey-card">
-      <span class="q-number">P2</span>
-      <div class="q-text">En su experiencia, ¿qué situaciones representan mayor riesgo? <small style="font-weight:400;color:var(--text-muted)">(puede marcar más de una)</small></div>
-      <div class="check-grid">
-        <label class="check-item"><input type="checkbox" name="p2" value="Caídas"><div class="check-box"></div><span>Caídas</span></label>
-        <label class="check-item"><input type="checkbox" name="p2" value="Errores en administración de medicamentos"><div class="check-box"></div><span>Errores en administración de medicamentos</span></label>
-        <label class="check-item"><input type="checkbox" name="p2" value="Sobrecarga laboral"><div class="check-box"></div><span>Sobrecarga laboral</span></label>
-        <label class="check-item"><input type="checkbox" name="p2" value="Falta de personal"><div class="check-box"></div><span>Falta de personal</span></label>
-        <label class="check-item"><input type="checkbox" name="p2" value="Otros"><div class="check-box"></div><span>Otros</span></label>
-      </div>
-      <textarea class="otros-input" rows="1" placeholder="Si marcó 'Otros', especifique aquí…" name="p2_otros"></textarea>
-    </div>
-
-    <div class="section-label">Bloque 2 — Estrés laboral</div>
-
-    <!-- P3 -->
-    <div class="survey-card">
-      <span class="q-number">P3</span>
-      <div class="q-text">¿Cuál es su nivel de estrés laboral percibido? Califíquelo del 1 al 10.</div>
-      <div class="scale-row">
-        <label class="scale-option"><input type="radio" name="p3" value="1"><div class="scale-btn">1</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="2"><div class="scale-btn">2</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="3"><div class="scale-btn">3</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="4"><div class="scale-btn">4</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="5"><div class="scale-btn">5</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="6"><div class="scale-btn">6</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="7"><div class="scale-btn">7</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="8"><div class="scale-btn">8</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="9"><div class="scale-btn">9</div></label>
-        <label class="scale-option"><input type="radio" name="p3" value="10"><div class="scale-btn">10</div></label>
-      </div>
-      <div class="scale-extremes"><span>1 = Sin estrés</span><span>10 = Estrés máximo</span></div>
-    </div>
-
-    <div class="section-label">Bloque 3 — Diagnóstico y mejora</div>
-
-    <!-- P4 (ex P5) -->
-    <div class="survey-card">
-      <span class="q-number">P4</span>
-      <div class="q-text">Mencione los 3 principales problemas del servicio y ordénelos por prioridad.</div>
-      <div class="priority-grid">
-        <div class="priority-row">
-          <div class="priority-badge">1°</div>
-          <input type="text" class="priority-input" name="p5_1" placeholder="Problema prioritario…">
+      <span class="q-icon">⭐</span>
+      <div class="q-text">¿Cuáles son las fortalezas del Servicio de Medicina 1 del Hospital de Peñablanca?</div>
+      <div class="q-hint">Nombre 3 ideas desde su experiencia en el servicio.</div>
+      <div class="ideas-grid">
+        <div class="idea-row">
+          <div class="idea-badge badge-f">1</div>
+          <input type="text" class="idea-input fortaleza" name="f1" placeholder="Primera fortaleza…">
         </div>
-        <div class="priority-row">
-          <div class="priority-badge p2">2°</div>
-          <input type="text" class="priority-input" name="p5_2" placeholder="Segundo problema…">
+        <div class="idea-row">
+          <div class="idea-badge badge-f">2</div>
+          <input type="text" class="idea-input fortaleza" name="f2" placeholder="Segunda fortaleza…">
         </div>
-        <div class="priority-row">
-          <div class="priority-badge p3">3°</div>
-          <input type="text" class="priority-input" name="p5_3" placeholder="Tercer problema…">
+        <div class="idea-row">
+          <div class="idea-badge badge-f">3</div>
+          <input type="text" class="idea-input fortaleza" name="f3" placeholder="Tercera fortaleza…">
         </div>
       </div>
     </div>
 
-    <!-- P5 (ex P6) -->
-    <div class="survey-card">
-      <span class="q-number">P5</span>
-      <div class="q-text">¿Qué acciones concretas implementaría para mejorar el servicio? ¿Cuál considera más urgente?</div>
-      <div class="field-hint">Describa sus propuestas y señale cuál requiere atención inmediata.</div>
-      <textarea class="open-textarea" name="p6" placeholder="Escriba sus propuestas aquí…"></textarea>
-    </div>
-
-    <!-- P6 (ex P7) -->
-    <div class="survey-card">
-      <span class="q-number">P6</span>
-      <div class="q-text">Mencione las 3 principales fortalezas del servicio de Medicina 1 del Hospital de Peñablanca.</div>
-      <div class="priority-grid">
-        <div class="priority-row">
-          <div class="priority-badge" style="background:var(--teal-light)">⭐</div>
-          <input type="text" class="priority-input" name="p7_1" placeholder="Primera fortaleza…">
+    <!-- P2 DEBILIDADES -->
+    <div class="survey-card card-debilidad">
+      <span class="q-number debilidad">P2</span>
+      <span class="q-icon">⚠️</span>
+      <div class="q-text">¿Cuáles son las principales debilidades o nudos críticos del Servicio de Medicina 1?</div>
+      <div class="q-hint">Nombre 3 ideas desde su experiencia en el servicio.</div>
+      <div class="ideas-grid">
+        <div class="idea-row">
+          <div class="idea-badge badge-d">1</div>
+          <input type="text" class="idea-input debilidad" name="d1" placeholder="Primera debilidad…">
         </div>
-        <div class="priority-row">
-          <div class="priority-badge" style="background:var(--teal-light)">⭐</div>
-          <input type="text" class="priority-input" name="p7_2" placeholder="Segunda fortaleza…">
+        <div class="idea-row">
+          <div class="idea-badge badge-d">2</div>
+          <input type="text" class="idea-input debilidad" name="d2" placeholder="Segunda debilidad…">
         </div>
-        <div class="priority-row">
-          <div class="priority-badge" style="background:var(--teal-light)">⭐</div>
-          <input type="text" class="priority-input" name="p7_3" placeholder="Tercera fortaleza…">
+        <div class="idea-row">
+          <div class="idea-badge badge-d">3</div>
+          <input type="text" class="idea-input debilidad" name="d3" placeholder="Tercera debilidad…">
         </div>
       </div>
     </div>
 
-    <!-- ÁREA DE ENVÍO -->
+    <!-- SUBMIT -->
     <div class="submit-area no-print" id="submitArea">
-      <button type="submit" class="submit-btn" id="submitBtn">✅ Enviar respuestas</button>
+      <button type="submit" class="submit-btn">✅ Enviar respuestas</button>
       <div class="submit-note">Sus respuestas son anónimas y serán tratadas de forma confidencial.</div>
     </div>
 
@@ -317,11 +207,11 @@
 
     <div class="success-msg" id="successMsg">
       <h3>✅ ¡Gracias por su participación!</h3>
-      <p>Sus respuestas han sido registradas correctamente y contribuirán a mejorar el servicio de Medicina 1.</p>
+      <p>Sus respuestas han sido registradas y contribuirán a mejorar el Servicio de Medicina 1.</p>
     </div>
 
     <div class="error-msg" id="errorMsg">
-      <p>⚠️ Ocurrió un error al enviar las respuestas. Por favor intente nuevamente.</p>
+      <p>⚠️ Ocurrió un error al enviar. Por favor intente nuevamente.</p>
       <button class="retry-btn" onclick="resetForm()">Reintentar</button>
     </div>
 
@@ -332,8 +222,7 @@
   // ══════════════════════════════════════════════════════
   //  ⚠️  PEGA AQUÍ LA URL DE TU APPS SCRIPT WEB APP
   // ══════════════════════════════════════════════════════
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwTgIVCCh0kK4ppatYfy4h9BK1KTdgaI6Wbq_nUznLT0-mXjYp1E-A-WJsBUIG2HoDvLg/exec";
-  // Ejemplo: "https://script.google.com/macros/s/AKfyc.../exec"
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7M5jTS07vzDMpqkBs5AwKpf2r3oDFARs0gZdejBBh4xAZ3kvsHlagjOsHZqVJb-Ssww/exec";
   // ══════════════════════════════════════════════════════
 
   new QRCode(document.getElementById("qrcode"), {
@@ -347,21 +236,10 @@
 
   function collectFormData() {
     const form = document.getElementById('surveyForm');
-    const getRadio = name => { const el = form.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ""; };
-    const getCheckboxes = name => Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
     const getText = name => { const el = form.querySelector(`[name="${name}"]`); return el ? el.value.trim() : ""; };
     return {
-      p1:       getRadio('p1'),
-      p2:       getCheckboxes('p2'),
-      p2_otros: getText('p2_otros'),
-      p3:       getRadio('p3'),
-      p5_1:     getText('p5_1'),
-      p5_2:     getText('p5_2'),
-      p5_3:     getText('p5_3'),
-      p6:       getText('p6'),
-      p7_1:     getText('p7_1'),
-      p7_2:     getText('p7_2'),
-      p7_3:     getText('p7_3')
+      f1: getText('f1'), f2: getText('f2'), f3: getText('f3'),
+      d1: getText('d1'), d2: getText('d2'), d3: getText('d3')
     };
   }
 
@@ -377,22 +255,19 @@
   document.getElementById('surveyForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     if (APPS_SCRIPT_URL === "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT") {
-      alert("⚠️ Configura la URL del Apps Script en el código HTML antes de usar el formulario.");
+      alert("⚠️ Configura la URL del Apps Script antes de usar el formulario.");
       return;
     }
-    const data = collectFormData();
     showState('sending');
     try {
       await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
+        method: "POST", mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        body: JSON.stringify(collectFormData())
       });
       showState('success');
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     } catch (err) {
-      console.error("Error al enviar:", err);
       showState('error');
     }
   });
@@ -400,3 +275,5 @@
 
 </body>
 </html>
+
+
